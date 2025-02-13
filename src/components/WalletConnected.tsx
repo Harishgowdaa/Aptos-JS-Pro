@@ -4,9 +4,16 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { APTOS_CONNECT_ACCOUNT_URL, isAptosConnectWallet, truncateAddress, useWallet } from '@aptos-labs/wallet-adapter-react';
 import { toast } from 'sonner';
 import { Copy, LogOut, User } from 'lucide-react';
+import { useAccount, useAptBalance } from '@aptos-labs/react';
+import { useNavigate } from 'react-router';
 
 const WalletConnected = () => {
+    const navigate = useNavigate();
     const { account, connected, disconnect, wallet } = useWallet();
+    const { data: balance } = useAptBalance();
+    console.log('balance:', balance);
+    console.log('account:', account);
+
     const copyAddress = useCallback(async () => {
         if (!account?.address) return;
         try {
@@ -18,8 +25,29 @@ const WalletConnected = () => {
     }, [account?.address]);
 
     return (
-        <div className='flex flex-col items-center justify-center h-screen gap-4'>
-            <div className='flex gap-4'>
+        <header className='flex items-center justify-between px-6 py-4 bg-gray-500 text-white shadow-md'>
+            {/* Left Section: Transactions & Send Transaction */}
+            <div className='flex gap-6'>
+                <Button
+                    variant='ghost'
+                    className='cursor-pointer'
+                    onClick={() => {
+                        navigate('/transactions');
+                    }}>
+                    Transactions
+                </Button>
+                <Button
+                    variant='ghost'
+                    className='cursor-pointer'
+                    onClick={() => {
+                        navigate('/send-transaction');
+                    }}>
+                    Send Transaction
+                </Button>
+            </div>
+
+            {/* Right Section: Wallet Dropdown */}
+            <div>
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button>{account?.ansName || truncateAddress(account?.address) || 'Unknown'}</Button>
@@ -41,7 +69,7 @@ const WalletConnected = () => {
                     </DropdownMenuContent>
                 </DropdownMenu>
             </div>
-        </div>
+        </header>
     );
 };
 

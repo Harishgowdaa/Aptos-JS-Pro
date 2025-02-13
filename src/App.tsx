@@ -3,6 +3,7 @@ import { WalletSelector } from './components/WalletSelector';
 import { SignAndSubmitTransaction } from './pages/SignAndSubmitTransaction';
 import PageNotFound from './pages/PageNotFound';
 import Transactions from './pages/Transactions';
+import { TransactionsTable } from './pages/TransactionsTable';
 
 function App() {
     return (
@@ -11,7 +12,7 @@ function App() {
                 <Route path='*' element={<PageNotFound />} />
                 <Route path='/' element={<WalletSelector />} />
                 <Route path='/send-transaction' element={<SignAndSubmitTransaction />} />
-                <Route path='/transactions' element={<Transactions />} />
+                <Route path='/transactions' element={<TransactionsTable />} />
             </Routes>
         </Router>
     );
