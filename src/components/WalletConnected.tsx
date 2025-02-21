@@ -7,12 +7,12 @@ import { Copy, LogOut, User, Wallet } from 'lucide-react';
 import { useAptBalance } from '@aptos-labs/react';
 import { useNavigate } from 'react-router';
 import { formatApt } from '@aptos-labs/js-pro';
+import Header from './header';
 
 const WalletConnected = () => {
     const navigate = useNavigate();
     const { account, connected, disconnect, wallet } = useWallet();
     const { data: balance } = useAptBalance();
-
 
     const copyAddress = useCallback(async () => {
         if (!account?.address) return;
@@ -27,8 +27,7 @@ const WalletConnected = () => {
     return (
         <div className='min-h-screen bg-gray-100 text-gray-900'>
             {/* Header */}
-            <header className='flex items-center justify-between px-6 py-4 bg-gray-500 text-white shadow-md'>
-                {/* Left Section: Transactions & Send Transaction */}
+            {/* <header className='flex items-center justify-between px-6 py-4 bg-gray-500 text-white shadow-md'>
                 <div className='flex gap-6'>
                     <Button variant='ghost' className='cursor-pointer' onClick={() => navigate('/transactions')}>
                         Transactions
@@ -38,7 +37,6 @@ const WalletConnected = () => {
                     </Button>
                 </div>
 
-                {/* Right Section: Wallet Dropdown */}
                 <div>
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
@@ -64,7 +62,8 @@ const WalletConnected = () => {
                         </DropdownMenuContent>
                     </DropdownMenu>
                 </div>
-            </header>
+            </header> */}
+            <Header />
 
             {/* Main Content */}
             <main className='flex flex-col items-center justify-center mt-10 p-6'>
