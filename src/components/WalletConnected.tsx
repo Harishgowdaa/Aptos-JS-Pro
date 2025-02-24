@@ -7,7 +7,6 @@ import { Copy, LogOut, User, Wallet } from 'lucide-react';
 import { useAptBalance } from '@aptos-labs/react';
 import { useNavigate } from 'react-router';
 import { formatApt } from '@aptos-labs/js-pro';
-import Header from '../components/Header'
 
 const WalletConnected = () => {
     const navigate = useNavigate();
@@ -63,7 +62,6 @@ const WalletConnected = () => {
                     </DropdownMenu>
                 </div>
             </header> */}
-            <Header />
 
             {/* Main Content */}
             <main className='flex flex-col items-center justify-center mt-10 p-6'>

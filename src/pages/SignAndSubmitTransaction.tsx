@@ -18,7 +18,6 @@ import {
 import { formatApt, parseApt } from "@aptos-labs/js-pro";
 import { toast } from "sonner";
 import { Copy } from "lucide-react";
-import Header from '@/components/header';
 
 export const SignAndSubmitTransaction = () => {
     const { account } = useWallet();
@@ -59,7 +58,6 @@ export const SignAndSubmitTransaction = () => {
   }
   return (
     <>
-      <Header />
         {account && (
             <Card className="max-w-lg mx-auto mt-10 p-6 shadow-lg rounded-2xl border border-gray-200 bg-white">
               <CardHeader>

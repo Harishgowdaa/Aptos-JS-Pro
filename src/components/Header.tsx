@@ -20,6 +20,11 @@ const Header = () => {
         }
     }, [account?.address]);
 
+    const handleDisconnect = async () => {
+        await disconnect();
+        navigate('/');
+    };
+
     return (
         <header className='flex items-center justify-between px-6 py-4 bg-gray-500 text-white shadow-md'>
             {/* Left Section: Transactions & Send Transaction */}
@@ -52,7 +57,7 @@ const Header = () => {
                                 </a>
                             </DropdownMenuItem>
                         )}
-                        <DropdownMenuItem onSelect={disconnect} className='gap-2 cursor-pointer'>
+                        <DropdownMenuItem onSelect={handleDisconnect} className='gap-2 cursor-pointer'>
                             <LogOut className='h-4 w-4' /> Disconnect
                         </DropdownMenuItem>
                     </DropdownMenuContent>

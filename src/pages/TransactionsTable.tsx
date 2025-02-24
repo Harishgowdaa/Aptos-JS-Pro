@@ -4,7 +4,6 @@ import { truncateAddress, useWallet } from '@aptos-labs/wallet-adapter-react';
 import { Copy } from 'lucide-react';
 import { toast } from 'sonner';
 import { formatApt } from '@aptos-labs/js-pro';
-import Header from '@/components/header';
 
 export const TransactionsTable = () => {
     const { account } = useWallet();
@@ -13,7 +12,6 @@ export const TransactionsTable = () => {
 
     return (
         <>
-            <Header />
 
             <div className='p-4'>
                 <h2 className='text-xl font-bold mb-4'>User Transactions</h2>
