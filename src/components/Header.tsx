@@ -36,23 +36,23 @@ const Header = () => {
             <div>
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <Button className='flex gap-2'>
-                            <Wallet className='h-5 w-5' />
+                        <Button className='flex items-center gap-2'>
+                            {wallet?.icon ? <img src={wallet.icon} alt='Wallet Icon' className='h-5 w-5' /> : <Wallet className='h-5 w-5' />}
                             {account?.ansName || truncateAddress(account?.address) || 'Unknown'}
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align='end'>
-                        <DropdownMenuItem onSelect={copyAddress} className='gap-2'>
+                        <DropdownMenuItem onSelect={copyAddress} className='gap-2 cursor-pointer'>
                             <Copy className='h-4 w-4' /> Copy address
                         </DropdownMenuItem>
-                        {Wallet && isAptosConnectWallet(wallet) && (
-                            <DropdownMenuItem asChild>
-                                <a href={APTOS_CONNECT_ACCOUNT_URL} target='_blank' rel='noopener noreferrer' className='flex gap-2'>
+                        {wallet && isAptosConnectWallet(wallet) && (
+                            <DropdownMenuItem className='gap-2'>
+                                <a href={APTOS_CONNECT_ACCOUNT_URL} target='_blank' rel='noopener noreferrer' className='flex items-center gap-2 w-full'>
                                     <User className='h-4 w-4' /> Account
                                 </a>
                             </DropdownMenuItem>
                         )}
-                        <DropdownMenuItem onSelect={disconnect} className='gap-2'>
+                        <DropdownMenuItem onSelect={disconnect} className='gap-2 cursor-pointer'>
                             <LogOut className='h-4 w-4' /> Disconnect
                         </DropdownMenuItem>
                     </DropdownMenuContent>

@@ -8,7 +8,7 @@ import Header from '@/components/header';
 
 export const TransactionsTable = () => {
     const { account } = useWallet();
-    const { data: activities } = useAccountActivities({ address: account?.address });
+    const { data: activities, isLoading } = useAccountActivities({ address: account?.address });
     console.log('activities:', activities);
 
     return (
@@ -30,35 +30,49 @@ export const TransactionsTable = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {activities?.pages?.[0]?.events?.map((tx, index) => (
-                                <tr key={index} className='border'>
-                                    <td className='border p-2'>{tx.version.toString()}</td>
-                                    <td className='border p-2'>{tx._type}</td>
-                                    <td className='border p-2'>{new Date(tx.timestamp).toLocaleString()}</td>
-                                    <td
-                                        className='border p-2'
-                                        onClick={() => {
-                                            navigator.clipboard.writeText(tx.sender?.address);
-                                            toast.success('Copied to clipboard!');
-                                        }}>
-                                        {truncateAddress(tx.sender?.address)} <Copy size={12} />
-                                    </td>
-                                    <td
-                                        className='border p-2'
-                                        onClick={() => {
-                                            navigator.clipboard.writeText(tx.receiver?.address);
-                                            toast.success('Copied to clipboard!');
-                                        }}>
-                                        {truncateAddress(tx.receiver?.address)} <Copy size={12} />
-                                    </td>
-                                    <td className='border p-2'>{tx.amount ? formatApt(tx.amount) : '0'} APT</td>
-                                </tr>
-                            )) || (
+                            {isLoading ? (
                                 <tr>
-                                    <td colSpan='6' className='text-center p-4'>
-                                        No transactions found
+                                    <td colSpan={6} className='text-center p-4'>
+                                       Loading..
                                     </td>
                                 </tr>
+                            ) : (
+                                activities?.pages?.[0]?.events?.map((tx, index) => (
+                                    <tr key={index} className='border'>
+                                        <td className='border p-2'>{tx.version.toString()}</td>
+                                        <td className='border p-2'>{tx._type}</td>
+                                        <td className='border p-2'>{new Date(tx.timestamp).toLocaleString()}</td>
+                                        <td className='border p-2'>
+                                            {tx.sender ? truncateAddress(tx.sender?.address) : 'N/A'}{' '}
+                                            {tx.sender ? (
+                                                <Copy
+                                                    size={12}
+                                                    onClick={() => {
+                                                        navigator.clipboard.writeText(tx.sender?.address);
+                                                        toast.success('Copied to clipboard!');
+                                                    }}
+                                                />
+                                            ) : (
+                                                ''
+                                            )}
+                                        </td>
+                                        <td className='border p-2'>
+                                            {tx.receiver ? truncateAddress(tx.receiver?.address) : 'N/A'}{' '}
+                                            {tx.receiver ? (
+                                                <Copy
+                                                    size={12}
+                                                    onClick={() => {
+                                                        navigator.clipboard.writeText(tx.receiver?.address);
+                                                        toast.success('Copied to clipboard!');
+                                                    }}
+                                                />
+                                            ) : (
+                                                ''
+                                            )}
+                                        </td>
+                                        <td className='border p-2'>{tx.amount ? formatApt(tx.amount) : '0'} APT</td>
+                                    </tr>
+                                ))
                             )}
                         </tbody>
                     </table>

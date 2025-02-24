@@ -7,7 +7,7 @@ import { Copy, LogOut, User, Wallet } from 'lucide-react';
 import { useAptBalance } from '@aptos-labs/react';
 import { useNavigate } from 'react-router';
 import { formatApt } from '@aptos-labs/js-pro';
-import Header from './header';
+import Header from '../components/Header'
 
 const WalletConnected = () => {
     const navigate = useNavigate();
@@ -73,7 +73,7 @@ const WalletConnected = () => {
                     {/* Wallet Balance */}
                     <div className='mb-4'>
                         <span className='text-gray-600'>Balance:</span>
-                        <span className='font-semibold text-lg'> {balance ? `${formatApt(balance)} APT` : 'Loading...'}</span>
+                        <span className='font-semibold text-lg'> {balance ? `${formatApt(balance)} APT`:'0 APT'}</span>
                     </div>
 
                     {/* Wallet Address */}
